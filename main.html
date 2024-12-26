@@ -1,106 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<mata name="viewport" content="width=divce-width, inital-scale=1.0">
-			<title>Human Verfication</title>
-			<style>
-		  #images-container {
-			  display: flex;
-			  gap: 10px;
-			  flex-wrap: wrap;
-              }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human Verification</title>
+    <style>
+        #images-container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
 
-			img{
-			width:  100px;
-			height: 100px;
-			cursor: pointer;
-				
-			}
+        img {
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+        }
 
-		 #reset, #verify, #para, {
-			
-		 margin-top: 20px;
-		 }
-		#reset, #verfiy,{
-			display: none;
-			
-		}		
-			</style>
-	</head>
-	<body>
-    <h3 id="h">Please click on the identical tiles to verfiy that you are  not a robot.</h3>
-		<div id="images-container"></div>
-		<button id="reset" onclick="resetGame()">Reset</button>
-		<button id="verfiy" onclick="verfiySelection()">Verfiy</button>
-		<p id="para"></p>
-		<script>
-			const imagesContainer = document.getElememtById("images-container");
-			const resetButton = document.getElementById("reset");
-			const  verfiyButton = document.getElementById("verfiy");
-			const paraButton = document.getElementById("para");
+        #reset, #verify, #para {
+            margin-top: 20px;
+        }
 
-			let clickedImages = [];
-			const imageClasses = ["img1", "img2", "img3", "img4", "img5"];
-			let image =  [];
+        #reset, #verify {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h3 id="h">Please click on the identical tiles to verify that you are not a robot.</h3>
+    <div id="images-container"></div>
+    <button id="reset" onclick="resetGame()">Reset</button>
+    <button id="verify" onclick="verifySelection()">Verify</button>
+    <p id="para"></p>
 
-			function initailizeGame(){
-				para.textContant = "";
-				resetButton.style.display = "none";
-				verfiyButton.style.display = "none";
-				clickedImages = [];
+    <script>
+        const imagesContainer = document.getElementById("images-container");
+        const resetButton = document.getElementById("reset");
+        const verifyButton = document.getElementById("verify");
+        const para = document.getElementById("para");
 
-				const duplicateClass = imageClasses[Math.floor(Math.random() * imageClasses.lenght)];
-				images = [...imageClasses,duplicateClass];
-				images = images.sort(() => Math.random() - 0.5);
-				imagesContainer.innerHtml = "";
-				images.forEach((imageClasses, index)=>{
-					const img = document.createElement("img");
-					img.className = imageClass;
-					img.alt = `Image ${index + 1}`;
-					img.onclick = () handleImageClick(imageClass, img);
-					imagesContainer.appendChild(img);
-				});
+        let clickedImages = [];
+        const imageClasses = ["img1", "img2", "img3", "img4", "img5"];
+        let images = [];
 
-				function hanldeImageClick(imageClass, imgElement) {
-			    if (clickedImages.some(Clicked => clicked.imgElement === imgElement)) return;
+        function initializeGame() {
+            para.textContent = "";
+            resetButton.style.display = "none";
+            verifyButton.style.display = "none";
+            clickedImages = [];
 
-					resetButton.stlye.display = "block";
-					if(clickedImages.lenght < 2){
-						clickedImages.push({imageClass, imgElement });
-						imgElement.style.border = "2px solid blue";
-						
-					}
-					if(clickedImages.lenght === 2){
-						verfiyButton.style.display = "block";
-						
-					}
-					
-				}
-				function resetGame() {
-					initailizeGame();
-					
-				}
-				function verfiySelection(){
-					verfiyButton.style.display = "none";
-					if(clickedImages.lenght === 2){
-						const [first, second] = clickedImages;
-						if(first.imageClass === second.imageClass){
-							para.textContent = "You are a Human. Congratulations!";
-							
-						}else{
-							para.textContent = "We can't verfiy you as a human. You selected the non-identical tiles.";
-							
-						}
-					}
-					clickedImages.forEach(({ imgElement })=>{
-						imgElement.style.border = "none";
-						
-					});
-					clickedImages = [];
-					
-				}
-			}
-			initailizeGame();
-		</script>
-	</body>
+            // Randomly choose a duplicate image class
+            const duplicateClass = imageClasses[Math.floor(Math.random() * imageClasses.length)];
+            images = [...imageClasses, duplicateClass];
+
+            // Shuffle the images
+            images = images.sort(() => Math.random() - 0.5);
+
+            // Render the images
+            imagesContainer.innerHTML = "";
+            images.forEach((imageClass, index) => {
+                const img = document.createElement("img");
+                img.className = imageClass;
+                img.alt = `Image ${index + 1}`;
+                img.onclick = () => handleImageClick(imageClass, img);
+                imagesContainer.appendChild(img);
+            });
+        }
+
+        function handleImageClick(imageClass, imgElement) {
+            // Avoid double-clicking the same image
+            if (clickedImages.some(clicked => clicked.imgElement === imgElement)) return;
+
+            resetButton.style.display = "block";
+            if (clickedImages.length < 2) {
+                clickedImages.push({ imageClass, imgElement });
+                imgElement.style.border = "2px solid blue";
+            }
+
+            if (clickedImages.length === 2) {
+                verifyButton.style.display = "block";
+            }
+        }
+
+        function resetGame() {
+            initializeGame();
+        }
+
+        function verifySelection() {
+            verifyButton.style.display = "none";
+
+            if (clickedImages.length === 2) {
+                const [first, second] = clickedImages;
+                if (first.imageClass === second.imageClass) {
+                    para.textContent = "You are a human. Congratulations!";
+                } else {
+                    para.textContent = "We can't verify you as a human. You selected the non-identical tiles.";
+                }
+            }
+
+            clickedImages.forEach(({ imgElement }) => {
+                imgElement.style.border = "none";
+            });
+            clickedImages = [];
+        }
+
+        // Initialize the game on page load
+        initializeGame();
+    </script>
+</body>
+</html>
