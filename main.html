@@ -1,16 +1,106 @@
 <!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<mata name="viewport" content="width=divce-width, inital-scale=1.0">
+			<title>Human Verfication</title>
+			<style>
+		  #images-container {
+			  display: flex;
+			  gap: 10px;
+			  flex-wrap: wrap;
+              }
 
-<html>
+			img{
+			width:  100px;
+			height: 100px;
+			cursor: pointer;
+				
+			}
 
-<head>
-	<link rel="stylesheet" href="styles.css">
-</head>
+		 #reset, #verify, #para, {
+			
+		 margin-top: 20px;
+		 }
+		#reset, #verfiy,{
+			display: none;
+			
+		}		
+			</style>
+	</head>
+	<body>
+    <h3 id="h">Please click on the identical tiles to verfiy that you are  not a robot.</h3>
+		<div id="images-container"></div>
+		<button id="reset" onclick="resetGame()">Reset</button>
+		<button id="verfiy" onclick="verfiySelection()">Verfiy</button>
+		<p id="para"></p>
+		<script>
+			const imagesContainer = document.getElememtById("images-container");
+			const resetButton = document.getElementById("reset");
+			const  verfiyButton = document.getElementById("verfiy");
+			const paraButton = document.getElementById("para");
 
-<body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
-</script>
+			let clickedImages = [];
+			const imageClasses = ["img1", "img2", "img3", "img4", "img5"];
+			let image =  [];
 
-</body>
+			function initailizeGame(){
+				para.textContant = "";
+				resetButton.style.display = "none";
+				verfiyButton.style.display = "none";
+				clickedImages = [];
 
-</html>
+				const duplicateClass = imageClasses[Math.floor(Math.random() * imageClasses.lenght)];
+				images = [...imageClasses,duplicateClass];
+				images = images.sort(() => Math.random() - 0.5);
+				imagesContainer.innerHtml = "";
+				images.forEach((imageClasses, index)=>{
+					const img = document.createElement("img");
+					img.className = imageClass;
+					img.alt = `Image ${index + 1}`;
+					img.onclick = () handleImageClick(imageClass, img);
+					imagesContainer.appendChild(img);
+				});
+
+				function hanldeImageClick(imageClass, imgElement) {
+			    if (clickedImages.some(Clicked => clicked.imgElement === imgElement)) return;
+
+					resetButton.stlye.display = "block";
+					if(clickedImages.lenght < 2){
+						clickedImages.push({imageClass, imgElement });
+						imgElement.style.border = "2px solid blue";
+						
+					}
+					if(clickedImages.lenght === 2){
+						verfiyButton.style.display = "block";
+						
+					}
+					
+				}
+				function resetGame() {
+					initailizeGame();
+					
+				}
+				function verfiySelection(){
+					verfiyButton.style.display = "none";
+					if(clickedImages.lenght === 2){
+						const [first, second] = clickedImages;
+						if(first.imageClass === second.imageClass){
+							para.textContent = "You are a Human. Congratulations!";
+							
+						}else{
+							para.textContent = "We can't verfiy you as a human. You selected the non-identical tiles.";
+							
+						}
+					}
+					clickedImages.forEach(({ imgElement })=>{
+						imgElement.style.border = "none";
+						
+					});
+					clickedImages = [];
+					
+				}
+			}
+			initailizeGame();
+		</script>
+	</body>
