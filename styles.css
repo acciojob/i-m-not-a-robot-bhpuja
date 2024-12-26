@@ -1,0 +1,70 @@
+/* General Body Styling */
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 20px;
+}
+
+/* Heading Styling */
+#h {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Image Container */
+#image-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+/* Image Styling */
+div[class^="img"] {
+  width: 100px;
+  height: 100px;
+  background-color: #ddd;
+  border: 2px solid #ccc;
+  cursor: pointer;
+  display: inline-block;
+}
+
+/* Unique Image Classes with Placeholder Colors */
+.img1 {
+  background-image: url("https://via.placeholder.com/100/FF0000");
+}
+
+.img2 {
+  background-image: url("https://via.placeholder.com/100/00FF00");
+}
+
+.img3 {
+  background-image: url("https://via.placeholder.com/100/0000FF");
+}
+
+.img4 {
+  background-image: url("https://via.placeholder.com/100/FFFF00");
+}
+
+.img5 {
+  background-image: url("https://via.placeholder.com/100/FF00FF");
+}
+
+/* Button Styling */
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+/* Paragraph Styling for Result */
+#para {
+  font-size: 18px;
+  font-weight: bold;
+  color: green;
+}
+
+
